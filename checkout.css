@@ -208,6 +208,89 @@
   margin-bottom: 1.5rem;
 }
 
+.promo-code-section {
+  padding: 1.5rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 1rem;
+}
+
+.promo-input-group {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.promo-input {
+  flex: 1;
+  padding: 0.8rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: var(--text-light);
+  font-size: 0.95rem;
+  font-family: 'Questrial', sans-serif;
+  text-transform: uppercase;
+  transition: var(--transition);
+}
+
+.promo-input:focus {
+  outline: none;
+  border-color: var(--secondary-color);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.promo-input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+  text-transform: none;
+}
+
+.apply-promo-btn {
+  background: var(--secondary-color);
+  color: var(--text-light);
+  border: none;
+  padding: 0.8rem 1.5rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: var(--transition);
+  white-space: nowrap;
+}
+
+.apply-promo-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 0, 0, 0.4);
+}
+
+.apply-promo-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.promo-message {
+  font-size: 0.9rem;
+  padding: 0.5rem 0;
+  min-height: 1.5rem;
+}
+
+.promo-message.success {
+  color: #00ff00;
+}
+
+.promo-message.error {
+  color: #ff6666;
+}
+
+.discount-row {
+  color: #00ff00;
+}
+
+.discount-amount {
+  color: #00ff00;
+  font-weight: 600;
+}
+
 .empty-summary {
   text-align: center;
   opacity: 0.6;

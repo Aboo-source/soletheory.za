@@ -1281,7 +1281,7 @@ function renderProducts() {
     productCard.style.animationDelay = `${index * 0.1}s`;
 
     productCard.innerHTML = `
-      <div class="product-image">
+      <div class="product-image" data-id="${product.id}" style="cursor: pointer;">
         <img src="${product.image}" alt="${product.name}">
       </div>
       <div class="product-info">
@@ -1292,6 +1292,13 @@ function renderProducts() {
     `;
 
     productsGrid.appendChild(productCard);
+  });
+
+  document.querySelectorAll('.product-image').forEach(img => {
+    img.addEventListener('click', (e) => {
+      const productId = parseInt(e.currentTarget.dataset.id);
+      showProductDetail(productId);
+    });
   });
 
   document.querySelectorAll('.add-to-cart').forEach(button => {
@@ -1433,9 +1440,11 @@ function performSearch(query) {
   }
 
   const searchQuery = query.toLowerCase().trim();
-  const results = products.filter(product =>
+  const allProducts = [...products, ...clothingProducts];
+  const results = allProducts.filter(product =>
     product.name.toLowerCase().includes(searchQuery) ||
-    product.price.toString().includes(searchQuery)
+    product.price.toString().includes(searchQuery) ||
+    (product.category && product.category.toLowerCase().includes(searchQuery))
   );
 
   if (results.length === 0) {
@@ -1444,13 +1453,13 @@ function performSearch(query) {
   }
 
   searchResultsContent.innerHTML = results.map(product => `
-    <div class="search-result-item" data-id="${product.id}">
+    <div class="search-result-item" data-id="${product.id}" data-type="${product.id >= 1000 ? 'clothing' : 'sneaker'}">
       <div class="search-result-image">
         <img src="${product.image}" alt="${product.name}">
       </div>
       <div class="search-result-info">
         <h4>${product.name}</h4>
-        <p class="search-result-price">$${product.price.toFixed(2)}</p>
+        <p class="search-result-price">R ${product.price.toFixed(2)}</p>
       </div>
     </div>
   `).join('');
@@ -1458,8 +1467,13 @@ function performSearch(query) {
   document.querySelectorAll('.search-result-item').forEach(item => {
     item.addEventListener('click', () => {
       const productId = parseInt(item.dataset.id);
+      const productType = item.dataset.type;
       closeSearch();
-      showProductDetail(productId);
+      if (productType === 'clothing') {
+        showClothingProductDetail(productId);
+      } else {
+        showProductDetail(productId);
+      }
     });
   });
 }
@@ -1687,7 +1701,7 @@ function showClothingCategory(category) {
       <div class="products-grid">
         ${categoryProducts.map((product, index) => `
           <div class="product-card" style="animation-delay: ${index * 0.1}s">
-            <div class="product-image">
+            <div class="product-image" data-id="${product.id}" style="cursor: pointer;">
               <img src="${product.image}" alt="${product.name}" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'400\\' height=\\'400\\'%3E%3Crect fill=\\'%23222\\' width=\\'400\\' height=\\'400\\'/%3E%3Ctext fill=\\'%23666\\' font-family=\\'Arial\\' font-size=\\'20\\' x=\\'50%25\\' y=\\'50%25\\' text-anchor=\\'middle\\' dy=\\'.3em\\'%3E${product.name}%3C/text%3E%3C/svg%3E'">
             </div>
             <div class="product-info">
@@ -1700,6 +1714,13 @@ function showClothingCategory(category) {
       </div>
     </div>
   `;
+
+  document.querySelectorAll('.product-image').forEach(img => {
+    img.addEventListener('click', (e) => {
+      const productId = parseInt(e.currentTarget.dataset.id);
+      showClothingProductDetail(productId);
+    });
+  });
 
   document.querySelectorAll('.add-to-cart').forEach(button => {
     button.addEventListener('click', (e) => {

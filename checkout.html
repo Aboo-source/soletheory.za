@@ -151,6 +151,14 @@
               <p class="empty-summary">Your cart is empty</p>
             </div>
             
+            <div class="promo-code-section">
+              <div class="promo-input-group">
+                <input type="text" id="promoCodeInput" placeholder="Enter promo code" class="promo-input">
+                <button id="applyPromoBtn" class="apply-promo-btn">APPLY</button>
+              </div>
+              <div id="promoMessage" class="promo-message"></div>
+            </div>
+
             <div class="summary-totals">
               <div class="summary-row">
                 <span>Subtotal</span>
@@ -159,6 +167,10 @@
               <div class="summary-row">
                 <span>Delivery</span>
                 <span id="summaryDelivery">R 99.00</span>
+              </div>
+              <div class="summary-row discount-row" id="discountRow" style="display: none;">
+                <span>Discount <span id="discountLabel"></span></span>
+                <span id="summaryDiscount" class="discount-amount">-R 0.00</span>
               </div>
               <div class="summary-row total">
                 <strong>Total</strong>
